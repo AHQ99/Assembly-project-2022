@@ -1,0 +1,86 @@
+[ORG 0x2000]
+
+
+num: dw 10, 20
+
+sum1: dw 0
+
+
+
+mov ax,[num+2]
+
+mov bx,[num+2]
+
+mov cx,[num+2]
+
+mov si,[num+2]
+
+
+jmp start
+
+	
+sum2:
+		
+add [sum1],ax
+
+jmp chang
+
+
+start:
+
+mov dx,0
+
+cmp ax,1
+
+je end1
+
+dec bx
+
+div bx
+
+mov ax,si
+
+cmp dx,0
+
+je check
+
+loop start
+
+jmp chang
+
+
+
+check:
+
+cmp bx,1
+
+je sum2
+
+
+chang:
+
+dec ax
+
+dec si
+
+mov bx,ax
+
+mov cx,si
+
+cmp [num],ax
+
+jg end1
+	
+jmp start
+
+
+end1:
+
+mov ax,[sum1]
+
+
+end:
+
+mov ax, 0x4c00
+
+int 0x21
